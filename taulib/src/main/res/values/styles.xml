@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FloatButton_Primary" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="tint">@color/white</item>
+    </style>
+    <style name="FloatButton_Secondary" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="backgroundTint">@color/secondary</item>
+        <item name="tint">@color/white</item>
+    </style>
+    <style name="FloatButton_White" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+<!--        <item name="backgroundColor">@color/white</item>-->
+        <item name="backgroundTint">@color/white</item>
+        <item name="tint">@color/secondary_dark</item>
+    </style>
+
+    <style name="Button.Secondary" parent="Widget.MaterialComponents.Button">
+<!--        <item name="android:background">@drawable/button_secondary_bg</item>-->
+        <item name="backgroundTint">@color/secondary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Button_White" parent="Widget.MaterialComponents.Button">
+<!--        <item name="android:background">@drawable/button_white_bg</item>-->
+        <item name="backgroundTint">@color/white_blue</item>
+        <item name="android:textColor">@color/secondary_dark</item>
+    </style>
+    <style name="Button.Bar.Secondary" parent="Widget.MaterialComponents.Button">
+<!--        <item name="android:background">@drawable/button_bar_secondary_bg</item>-->
+        <item name="backgroundTint">@color/secondary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Button.Toggle.File.Format" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/toggle_file_format</item>
+        <item name="android:textColor">@color/toggle_text_color</item>
+        <item name="android:layout_margin">@dimen/toggle_margin</item>
+    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+</resources>

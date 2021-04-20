@@ -1,0 +1,3 @@
+include ':taulib'
+include ':app'
+rootProject.name = "Tau App"
