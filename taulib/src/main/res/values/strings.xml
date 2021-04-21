@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_medias">Add medias</string>
+    <string name="clear_all">Clear all</string>
+    <string name="next_to_ready_to_extract">Next to ready to extract</string>
+    <string name="list_of_medias_file">List of medias file</string>
+    <string name="thumbnail_of_media">Thumbnail of media</string>
+    <string name="remove_current_item">Remove current item</string>
+    <string name="text_view">TextView</string>
+    <string name="add">Add</string>
+    <string name="clear">Clear</string>
+    <string name="Next">Next</string>
+    <string name="title_output_directory">Output directory:</string>
+    <string name="empty">Empty</string>
+    <string name="tell_result_many_items_holder">Processing %d files successfully!</string>
+    <string name="tell_result_1_photo_holder">Processing %d file successfully!</string>
+    <string name="progress_message_holder">%d / %d</string>
+    <string name="done">Done</string>
+    <string name="saved_in">Saved in:</string>
+    <string name="tell_output_dir_holder">Saved in: %s</string>
+    <string name="tell_processing_canceled">Processing is canceled!</string>
+</resources>
