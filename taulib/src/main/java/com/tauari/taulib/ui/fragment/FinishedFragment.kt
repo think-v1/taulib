@@ -1,7 +1,6 @@
 package com.tauari.taulib.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.tauari.taulib.R
 import com.tauari.taulib.tool.FileTool
 
 open class FinishedFragment : AnimatedFragment(), OnGotoNextFragment {
-    protected var numPhotosConverted: Int = 0
+    protected var numItemsProcessed: Int = 0
     protected var outputDir: String = ""
     private lateinit var btnDone: Button
     private lateinit var txtTellResult: TextView
@@ -21,7 +20,7 @@ open class FinishedFragment : AnimatedFragment(), OnGotoNextFragment {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            numPhotosConverted = it.getInt(BundleKey.NUM_ITEMS_FINISHED)
+            numItemsProcessed = it.getInt(BundleKey.NUM_ITEMS_FINISHED)
             outputDir = it.getString(BundleKey.OUTPUT_DIR).toString()
         }
     }
@@ -58,11 +57,11 @@ open class FinishedFragment : AnimatedFragment(), OnGotoNextFragment {
     }
 
     protected fun updateViews() {
-        if(numPhotosConverted > 1) {
-            txtTellResult.text = getString(R.string.tell_result_many_items_holder, numPhotosConverted)
+        if(numItemsProcessed > 1) {
+            txtTellResult.text = getString(R.string.tell_result_many_items_holder, numItemsProcessed)
         }
         else {
-            txtTellResult.text = getString(R.string.tell_result_1_photo_holder, numPhotosConverted)
+            txtTellResult.text = getString(R.string.tell_result_1_item_holder, numItemsProcessed)
         }
 
         txtTellOutputDir.text = FileTool.getDisplayPath(outputDir)

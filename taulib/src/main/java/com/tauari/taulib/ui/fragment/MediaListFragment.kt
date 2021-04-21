@@ -5,8 +5,6 @@ import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.transition.TransitionInflater
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,22 +22,22 @@ import com.tauari.taulib.ui.ListItemDivider
 
 open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAddition {
 
-    private lateinit var btnNext: FloatingActionButton
-    private lateinit var btnAddPhotos: FloatingActionButton
-    private lateinit var btnClearAll: FloatingActionButton
-    private lateinit var recyclerView: RecyclerView
+    protected lateinit var btnNext: FloatingActionButton
+    protected lateinit var btnAddPhotos: FloatingActionButton
+    protected lateinit var btnClearAll: FloatingActionButton
+    protected lateinit var recyclerView: RecyclerView
     protected lateinit var adapter: MediaItemListAdapter
-    private lateinit var txtEmpty: TextView
-    private lateinit var txtNext: TextView
-    private lateinit var txtClear: TextView
-    private val observerImp = AdapterDataObserver()
+    protected lateinit var txtEmpty: TextView
+    protected lateinit var txtNext: TextView
+    protected lateinit var txtClear: TextView
+    protected val observerImp = AdapterDataObserver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAdapter()
     }
 
-    private fun initAdapter() {
+    open fun initAdapter() {
         adapter = MediaItemListAdapter(requireContext(), arrayListOf())
         adapter.registerAdapterDataObserver(observerImp)
     }
@@ -60,7 +58,7 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
         updateViewsVisible()
     }
 
-    private fun findViews() {
+    open fun findViews() {
         btnAddPhotos = requireActivity().findViewById(R.id.fbtn_add_photos)
         btnClearAll = requireActivity().findViewById(R.id.fbtn_clear_all)
         btnNext = requireActivity().findViewById(R.id.fbtn_next)
@@ -72,14 +70,14 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
 
 
 
-    private fun initRecyclerView() {
+    open fun initRecyclerView() {
         recyclerView.addItemDecoration(ListItemDivider(requireContext()))
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
     }
 
-    private fun registerButtonClickListeners() {
+    open fun registerButtonClickListeners() {
         btnNext.setOnClickListener { gotoNextFragment() }
         btnClearAll.setOnClickListener { clearAllItems() }
         btnAddPhotos.setOnClickListener {
@@ -96,22 +94,26 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
         //Need to implement from children
     }
 
-    fun getPhotosReadyToConvert(): Bundle {
+    open fun getItemsReadyToProcess(): Bundle {
         val data = Bundle()
-        data.putParcelableArrayList(BundleKey.MEDIAS_READY_TO_CONVERT, adapter.dataSource)
+        data.putParcelableArrayList(BundleKey.MEDIAS_READY_TO_PROCESS, adapter.dataSource)
         return data
     }
 
-    private fun clearAllItems() {
+    open fun clearAllItems() {
         adapter.clearDataSource()
     }
 
-    private fun pickFiles() {
+    open fun pickFiles() {
         val actionPickIntent = Intent(Intent.ACTION_PICK)
-        actionPickIntent.type = "image/*"
+        actionPickIntent.type = getItemMimeType()
         actionPickIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         actionPickIntent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(actionPickIntent, RequestCode.PICK_FILES_FROM_OS)
+    }
+
+    open fun getItemMimeType(): String {
+        return "image/*"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -192,36 +194,27 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
         }
     }
 
-    private fun updateViewsVisible() {
+    open fun updateViewsVisible() {
         updateTxtEmptyVisible()
         updateBtnClearVisible()
         updateBtnNextVisible()
     }
 
-    private fun updateTxtEmptyVisible() {
+    open fun updateTxtEmptyVisible() {
         txtEmpty.isVisible = adapter.itemCount <= 0
     }
 
-    private fun updateBtnNextVisible() {
+    open fun updateBtnNextVisible() {
         btnNext.isVisible = adapter.itemCount > 0
         txtNext.isVisible = adapter.itemCount > 0
     }
 
-    private fun updateBtnClearVisible() {
+    open fun updateBtnClearVisible() {
         btnClearAll.isVisible = adapter.itemCount > 0
         txtClear.isVisible = adapter.itemCount > 0
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MediaListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
             MediaListFragment().apply {}

@@ -12,7 +12,7 @@ import kotlin.random.Random
 
 object FileTool {
     val max = 10000
-    val defaultName = "photoConverter"
+    val defaultName = "tauari_app_data_item"
     fun isExists(filePath: String): Boolean {
         val file = File(filePath)
         return file.exists()
@@ -114,5 +114,12 @@ object FileTool {
 //            startIndex = path.indexOf(Environment.DIRECTORY_PICTURES)
 //        }
 //        return "Internal Storage: /${path.subSequence(startIndex, path.length)}"
+    }
+
+    fun scanOutputDir(context: Context, dirPath: String?) {
+        dirPath?.let {
+            MediaScannerConnection.scanFile(context, arrayOf(it), null, null)
+        }
+
     }
 }

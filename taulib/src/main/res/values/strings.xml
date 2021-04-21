@@ -13,10 +13,12 @@
     <string name="title_output_directory">Output directory:</string>
     <string name="empty">Empty</string>
     <string name="tell_result_many_items_holder">Processing %d files successfully!</string>
-    <string name="tell_result_1_photo_holder">Processing %d file successfully!</string>
+    <string name="tell_result_1_item_holder">Processing %d file successfully!</string>
     <string name="progress_message_holder">%d / %d</string>
     <string name="done">Done</string>
     <string name="saved_in">Saved in:</string>
     <string name="tell_output_dir_holder">Saved in: %s</string>
     <string name="tell_processing_canceled">Processing is canceled!</string>
+    <string name="processing">Processing</string>
+    <string name="start">Start</string>
 </resources>
