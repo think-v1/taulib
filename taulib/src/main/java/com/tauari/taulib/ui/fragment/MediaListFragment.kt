@@ -5,6 +5,8 @@ import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,20 +54,20 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findViews()
+        findViews(view)
         initRecyclerView()
         registerButtonClickListeners()
         updateViewsVisible()
     }
 
-    open fun findViews() {
-        btnAddPhotos = requireActivity().findViewById(R.id.fbtn_add_photos)
-        btnClearAll = requireActivity().findViewById(R.id.fbtn_clear_all)
-        btnNext = requireActivity().findViewById(R.id.fbtn_next)
-        recyclerView = requireActivity().findViewById(R.id.recy_medias)
-        txtEmpty = requireActivity().findViewById(R.id.txt_empty_photos)
-        txtNext = requireActivity().findViewById(R.id.txt_next)
-        txtClear = requireActivity().findViewById(R.id.txt_clear)
+    open fun findViews(container: View) {
+        btnAddPhotos = container.findViewById(R.id.fbtn_add_photos)
+        btnClearAll = container.findViewById(R.id.fbtn_clear_all)
+        btnNext = container.findViewById(R.id.fbtn_next)
+        recyclerView = container.findViewById(R.id.recy_medias)
+        txtEmpty = container.findViewById(R.id.txt_empty_photos)
+        txtNext = container.findViewById(R.id.txt_next)
+        txtClear = container.findViewById(R.id.txt_clear)
     }
 
 
@@ -105,6 +107,7 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
     }
 
     open fun pickFiles() {
+        Log.e("MediaListFragment", "mime type: ${getItemMimeType()}")
         val actionPickIntent = Intent(Intent.ACTION_PICK)
         actionPickIntent.type = getItemMimeType()
         actionPickIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)

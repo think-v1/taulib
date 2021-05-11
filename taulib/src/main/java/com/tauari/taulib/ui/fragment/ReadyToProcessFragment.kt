@@ -41,6 +41,7 @@ abstract class ReadyToProcessFragment: AnimatedFragment(), OnGotoNextFragment, O
         super.onCreate(savedInstanceState)
         dataSource = getDataIncome()
         pref = getPrefKey()
+        taskLoaderManager = getAppTaskLoaderManager()
     }
 
     open fun getDataIncome(): ArrayList<MediaItem> {
@@ -53,15 +54,17 @@ abstract class ReadyToProcessFragment: AnimatedFragment(), OnGotoNextFragment, O
 
     abstract fun getPrefKey(): SharedPreferences
 
+    abstract fun getAppTaskLoaderManager(): LoaderManager
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findViews()
+        findViews(view)
         registerViewListeners()
         setNormalState()
         initDefaultValues()
     }
 
-    abstract fun findViews()
+    abstract fun findViews(container: View)
     open fun registerViewListeners() {
         registerExecuteButtonListener()
         registerChangeDirButtonListener()
