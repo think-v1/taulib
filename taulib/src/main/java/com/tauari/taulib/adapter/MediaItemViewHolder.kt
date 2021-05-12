@@ -42,8 +42,8 @@ class MediaItemViewHolder(itemView: View, val listener: OnMediaItemClickListener
 
     private fun setThumbnail(context: Context, uriContent: Uri, fileExt: String) {
         val type = MediaTypeHelper.whichTypeOf(fileExt)
-        when {
-            type == MediaType.audio.name -> {
+        when (type) {
+            MediaType.audio.name -> {
                 Glide.with(context).load(R.drawable.baseline_audiotrack_black_36).into(imgAvatar)
             }
             else -> {

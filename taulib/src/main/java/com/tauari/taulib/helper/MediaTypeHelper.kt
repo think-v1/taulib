@@ -17,14 +17,14 @@ object MediaTypeHelper {
 
     fun isVideo(fileExt: String): Boolean {
         val foundList = VideoFormat.values().filter {
-            fileExt == MediaFormatHelper.getDisplayNameOfFormat(it.name)
+            fileExt == ".${MediaFormatHelper.getDisplayNameOfFormat(it.name)}"
         }
         return foundList.isNotEmpty()
     }
 
     fun isAudio(fileExt: String): Boolean {
         val foundList = AudioFormat.values().filter {
-            fileExt.contains(MediaFormatHelper.getDisplayNameOfFormat(it.name))
+            fileExt == ".${MediaFormatHelper.getDisplayNameOfFormat(it.name)}"
         }
         return foundList.isNotEmpty()
     }
