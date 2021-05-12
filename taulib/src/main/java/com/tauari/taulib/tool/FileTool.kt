@@ -65,7 +65,7 @@ object FileTool {
     }
 
     fun removeExtFromName(name: String): String {
-        val index = name.lastIndexOf('.', 0, true)
+        val index = name.lastIndexOf('.')
         if(index < 0) { return name }
         return name.subSequence(0, index).toString()
     }
