@@ -19,7 +19,7 @@ class TestMediaListFragment : MediaListFragment() {
     }
 
     override fun getItemMimeType(): String {
-        return "video/*"
+        return "audio/*"
     }
     companion object {
         @JvmStatic

@@ -8,9 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.tauari.taulib.MediaType
 import com.tauari.taulib.R
 import com.tauari.taulib.data.model.MediaItem
+import com.tauari.taulib.helper.MediaTypeHelper
 import com.tauari.taulib.tool.FileSizeCalculator
+import com.tauari.taulib.tool.FileTool
 
 class MediaItemViewHolder(itemView: View, val listener: OnMediaItemClickListener): RecyclerView.ViewHolder(itemView) {
     private val imgAvatar = itemView.findViewById<ImageView>(R.id.img_avatar)
@@ -25,18 +28,27 @@ class MediaItemViewHolder(itemView: View, val listener: OnMediaItemClickListener
     fun bind(item: MediaItem) {
         setNameText(item.name)
         setSizeText(FileSizeCalculator.getFileSizeDisplay(item.size))
-        setThumbnail(itemView.context, item.uriContent)
+        val ext = FileTool.getExtOfFile(item.name)
+        setThumbnail(itemView.context, item.uriContent, ext)
     }
 
-    fun setNameText(value: String) {
+    private fun setNameText(value: String) {
         txtName.text = value
     }
 
-    fun setSizeText(value: String) {
+    private fun setSizeText(value: String) {
         txtPath.text = value
     }
 
-    fun setThumbnail(context: Context, uriContent: Uri) {
-        Glide.with(context).load(uriContent).into(imgAvatar)
+    private fun setThumbnail(context: Context, uriContent: Uri, fileExt: String) {
+        val type = MediaTypeHelper.whichTypeOf(fileExt)
+        when {
+            type == MediaType.audio.name -> {
+                Glide.with(context).load(R.drawable.baseline_audiotrack_black_36).into(imgAvatar)
+            }
+            else -> {
+                Glide.with(context).load(uriContent).into(imgAvatar)
+            }
+        }
     }
 }

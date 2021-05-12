@@ -43,6 +43,7 @@ object FileTool {
 
     fun getNameFromPath(path: String): String {
         val lastSlashIndex = path.lastIndexOf('/')
+        if(lastSlashIndex < 0) { return path }
         return path.subSequence(lastSlashIndex + 1, path.lastIndex+1).toString()
     }
 
@@ -64,12 +65,14 @@ object FileTool {
     }
 
     fun removeExtFromName(name: String): String {
-        val index = name.lastIndexOf('.')
+        val index = name.lastIndexOf('.', 0, true)
+        if(index < 0) { return name }
         return name.subSequence(0, index).toString()
     }
 
     fun getExtOfFile(name: String) : String {
         val index = name.lastIndexOf('.')
+        if(index < 0) { return ""}
         return name.subSequence(index, name.lastIndex+1).toString()
     }
 
