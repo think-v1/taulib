@@ -5,7 +5,6 @@ import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +24,7 @@ import com.tauari.taulib.ui.ListItemDivider
 open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAddition {
 
     protected lateinit var btnNext: FloatingActionButton
-    protected lateinit var btnAddPhotos: FloatingActionButton
+    protected lateinit var btnAddFiles: FloatingActionButton
     protected lateinit var btnClearAll: FloatingActionButton
     protected lateinit var recyclerView: RecyclerView
     protected lateinit var adapter: MediaItemListAdapter
@@ -61,7 +60,7 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
     }
 
     open fun findViews(container: View) {
-        btnAddPhotos = container.findViewById(R.id.fbtn_add_photos)
+        btnAddFiles = container.findViewById(R.id.fbtn_add_photos)
         btnClearAll = container.findViewById(R.id.fbtn_clear_all)
         btnNext = container.findViewById(R.id.fbtn_next)
         recyclerView = container.findViewById(R.id.recy_medias)
@@ -82,12 +81,12 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
     open fun registerButtonClickListeners() {
         btnNext.setOnClickListener { gotoNextFragment() }
         btnClearAll.setOnClickListener { clearAllItems() }
-        btnAddPhotos.setOnClickListener {
+        btnAddFiles.setOnClickListener {
 //            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
 //                openFileMan()
 //            }
 //            else {
-            pickFiles()
+            onButtonAddFilesClicked()
 //            }
         }
     }
@@ -104,6 +103,10 @@ open class MediaListFragment : AnimatedFragment(), OnGotoNextFragment, OnMediaAd
 
     open fun clearAllItems() {
         adapter.clearDataSource()
+    }
+
+    open fun onButtonAddFilesClicked() {
+        pickFiles()
     }
 
     open fun pickFiles() {
